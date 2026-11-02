@@ -1,4 +1,4 @@
-import { principles } from "@/lib/content";
+import { principles, stack } from "@/lib/content";
 
 export function About() {
   return (
@@ -20,6 +20,15 @@ export function About() {
             simple: make the technical side feel approachable and build
             something useful for your business.
           </p>
+          <p>
+            Public repositories include an artist website, an online butcher
+            shop, and a car-service dashboard. The work uses the tools below.
+          </p>
+          <ul className="stack" aria-label="Technologies used in public projects">
+            {stack.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
           <div className="principles">
             {principles.map((principle) => (
               <div key={principle.title}>

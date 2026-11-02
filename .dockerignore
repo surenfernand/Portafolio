@@ -1,0 +1,14 @@
+.git
+.github
+.next
+node_modules
+npm-debug.log
+.vercel
+coverage
+*.md
+.env
+.env.*
+**/.env
+**/.env.*
+*.zip
+*.pem

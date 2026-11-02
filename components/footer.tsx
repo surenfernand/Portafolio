@@ -15,8 +15,7 @@ export function Footer() {
           </div>
         </div>
         <div className="template-note">
-          © 2026 Web Loom Zone. &nbsp; Website concept. Portfolio examples are
-          illustrative; update business details before launch.
+          © 2026 Web Loom Zone.
         </div>
       </div>
     </footer>

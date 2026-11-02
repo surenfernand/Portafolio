@@ -1,9 +1,17 @@
 "use client";
 
 import { useEffect, useRef, type MouseEvent } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { projects } from "@/lib/content";
 import { useSite } from "./site-context";
+
+const categoryLabel = {
+  website: "Business website",
+  booking: "Booking",
+  app: "Web application",
+  store: "E-commerce",
+} as const;
 
 export function ProjectDialog() {
   const { activeProject, closeProject } = useSite();
@@ -44,13 +52,47 @@ export function ProjectDialog() {
       >
         ×
       </button>
-      <div className="eyebrow">Project concept</div>
+      {project?.images ? (
+        <div className="dialog-shot">
+          <Image
+            src={project.images.desktop}
+            alt={project.alt}
+            fill
+            sizes="640px"
+            style={{ objectFit: "contain", objectPosition: "center" }}
+          />
+        </div>
+      ) : project ? (
+        <p className="shot-missing-note">Screenshot needed for this project.</p>
+      ) : null}
+      <div className="eyebrow">
+        {project ? categoryLabel[project.category] : "Project"}
+      </div>
       <h2 id="project-title">{project?.title}</h2>
       <p>{project?.description}</p>
       <p>{project?.features}</p>
+      {project ? (
+        <ul className="tech-list">
+          {project.technologies.map((tech) => (
+            <li className="tech-badge" key={tech}>
+              {tech}
+            </li>
+          ))}
+        </ul>
+      ) : null}
       <div className="dialog-actions">
+        {project?.live ? (
+          <a
+            className="button light"
+            href={project.live}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Live website ↗
+          </a>
+        ) : null}
         <Link
-          className="button"
+          className="button light"
           href="/about#contact"
           onClick={() => dialogRef.current?.close()}
         >

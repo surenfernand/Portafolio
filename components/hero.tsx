@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { whatsapp } from "@/lib/content";
+import { projects, whatsapp } from "@/lib/content";
 
 export function Hero() {
   return (
@@ -34,7 +35,33 @@ export function Hero() {
           Based in Sri Lanka · Working with businesses everywhere
         </div>
       </div>
-      <div className="hero-art" aria-label="Illustrative software project workspace">
+      <div className="hero-art" aria-label="Project previews and a software workspace">
+        <div className="hero-floats">
+          {projects
+            .filter(
+              (project) =>
+                project.origin === "independent" && project.images,
+            )
+            .slice(0, 2)
+            .map((project, index) =>
+              project.images ? (
+                <figure
+                  className={index === 0 ? "hero-float front" : "hero-float back"}
+                  key={project.slug}
+                >
+                  <Image
+                    src={project.images.desktop}
+                    alt={project.alt}
+                    width={1440}
+                    height={900}
+                    sizes="280px"
+                    preload={index === 0}
+                  />
+                  <figcaption>{project.title}</figcaption>
+                </figure>
+              ) : null,
+            )}
+        </div>
         <div className="ambient-orbit orbit-one" />
         <div className="ambient-orbit orbit-two" />
         <div className="workspace">
@@ -50,7 +77,13 @@ export function Hero() {
           <div className="workspace-body">
             <aside className="workspace-sidebar">
               <div className="workspace-monogram">
-                w<span>z</span>
+                <Image
+                  src="/brand/logo.png"
+                  alt=""
+                  width={779}
+                  height={376}
+                  sizes="58px"
+                />
               </div>
               <div className="workspace-nav selected">
                 ▦ <span>Overview</span>

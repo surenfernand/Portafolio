@@ -20,6 +20,8 @@ export type SiteContextValue = {
   closeProject: () => void;
   enquiry: string;
   enquiryOpen: boolean;
+  submitStatus: "idle" | "sending" | "sent" | "error";
+  submitMessage: string;
   submitEnquiry: (event: FormEvent<HTMLFormElement>) => void;
   closeEnquiry: () => void;
   copyStatus: string;

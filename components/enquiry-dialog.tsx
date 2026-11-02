@@ -4,8 +4,14 @@ import { useEffect, useRef, type MouseEvent } from "react";
 import { useSite } from "./site-context";
 
 export function EnquiryDialog() {
-  const { enquiry, enquiryOpen, closeEnquiry, copyEnquiry, copyStatus } =
-    useSite();
+  const {
+    enquiry,
+    enquiryOpen,
+    closeEnquiry,
+    copyEnquiry,
+    copyStatus,
+    submitStatus,
+  } = useSite();
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -45,8 +51,9 @@ export function EnquiryDialog() {
       <div className="eyebrow">Your project brief</div>
       <h2 id="enquiry-title">A good place to start.</h2>
       <p>
-        Your draft is ready. Copy it to share by email or WhatsApp. This
-        preview does not send your details.
+        {submitStatus === "sent"
+          ? "Your enquiry is on its way. A copy is below if you also want to share it on WhatsApp."
+          : "Your draft is ready. Copy it to share by email or WhatsApp."}
       </p>
       <div id="enquiry-output">{enquiry}</div>
       <div className="dialog-actions">

@@ -17,7 +17,7 @@ export function Process() {
           a website you understand.
         </p>
       </div>
-      <div className="process">
+      <div className="process timeline">
         {steps.map((step) => (
           <article className="step" key={step.number}>
             <span className="step-number">{step.number}</span>

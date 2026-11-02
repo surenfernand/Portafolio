@@ -25,11 +25,17 @@ export function SiteProvider({ children }: { children: ReactNode }) {
   const [enquiry, setEnquiry] = useState("");
   const [enquiryOpen, setEnquiryOpen] = useState(false);
   const [copyStatus, setCopyStatus] = useState("");
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "sending" | "sent" | "error"
+  >("idle");
+  const [submitMessage, setSubmitMessage] = useState("");
 
   const value = useMemo<SiteContextValue>(() => {
     return {
       form,
       updateField(field, next) {
+        setSubmitStatus("idle");
+        setSubmitMessage("");
         setForm((current) => ({ ...current, [field]: next }));
       },
       selectOffer(packageName, service) {
@@ -51,25 +57,59 @@ export function SiteProvider({ children }: { children: ReactNode }) {
       },
       enquiry,
       enquiryOpen,
+      submitStatus,
+      submitMessage,
       submitEnquiry(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        if (submitStatus === "sending") return;
+
         const business = form.company.trim() || "Not specified";
-        setEnquiry(
-          [
-            "Website project enquiry",
-            "",
-            `Name: ${form.name}`,
-            `Email: ${form.email}`,
-            `Business: ${business}`,
-            `Service: ${form.service}`,
-            `Scope: ${form.packageName}`,
-            "",
-            "Project details:",
-            form.message,
-          ].join("\n"),
-        );
+        const details = [
+          "Website project enquiry",
+          "",
+          `Name: ${form.name}`,
+          `Email: ${form.email}`,
+          `Business: ${business}`,
+          `Service: ${form.service}`,
+          `Scope: ${form.packageName}`,
+          "",
+          "Project details:",
+          form.message,
+        ].join("\n");
+
+        setEnquiry(details);
         setCopyStatus("");
-        setEnquiryOpen(true);
+        setSubmitStatus("sending");
+        setSubmitMessage("");
+
+        void (async () => {
+          try {
+            const response = await fetch("/api/enquiry", {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify(form),
+            });
+            const data = (await response.json().catch(() => null)) as {
+              error?: string;
+            } | null;
+            if (!response.ok) {
+              setSubmitStatus("error");
+              setSubmitMessage(
+                data?.error ||
+                  "We couldn’t send that. Please try again or use WhatsApp.",
+              );
+              return;
+            }
+            setSubmitStatus("sent");
+            setSubmitMessage("");
+            setEnquiryOpen(true);
+          } catch {
+            setSubmitStatus("error");
+            setSubmitMessage(
+              "We couldn’t send that. Please try again or use WhatsApp.",
+            );
+          }
+        })();
       },
       closeEnquiry() {
         setEnquiryOpen(false);
@@ -94,7 +134,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
         }
       },
     };
-  }, [activeProject, copyStatus, enquiry, enquiryOpen, form]);
+  }, [activeProject, copyStatus, enquiry, enquiryOpen, form, submitMessage, submitStatus]);
 
   return (
     <SiteContext.Provider value={value}>

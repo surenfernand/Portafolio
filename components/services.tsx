@@ -1,4 +1,5 @@
-import { services } from "@/lib/content";
+import Image from "next/image";
+import { projects, services } from "@/lib/content";
 
 export function Services() {
   return (
@@ -30,9 +31,35 @@ export function Services() {
                 <li key={point}>{point}</li>
               ))}
             </ul>
+            {service.title === "Business websites" ? (
+              <ServicePreview slug="meraki-arts" />
+            ) : null}
+            {service.title === "Online stores" ? (
+              <ServicePreview slug="butchers-online" />
+            ) : null}
+            {service.title === "Custom web applications" ? (
+              <ServicePreview slug="car-service" />
+            ) : null}
           </article>
         ))}
       </div>
     </section>
+  );
+}
+
+function ServicePreview({ slug }: { slug: string }) {
+  const project = projects.find((item) => item.slug === slug);
+  if (!project?.images) return null;
+
+  return (
+    <div className="service-preview">
+      <Image
+        src={project.images.desktop}
+        alt={project.alt}
+        fill
+        sizes="(max-width: 760px) 100vw, 33vw"
+        style={{ objectFit: "contain", objectPosition: "center" }}
+      />
+    </div>
   );
 }

@@ -4,7 +4,8 @@ import { packageOptions, serviceOptions, whatsapp } from "@/lib/content";
 import { useSite } from "./site-context";
 
 export function Contact() {
-  const { form, updateField, submitEnquiry } = useSite();
+  const { form, updateField, submitEnquiry, submitStatus, submitMessage } =
+    useSite();
 
   return (
     <section className="contact-section" id="contact">
@@ -12,20 +13,22 @@ export function Contact() {
         <div className="contact-copy">
           <div className="eyebrow">Let’s make something useful</div>
           <h2>
-            A good website
+            Have a project in mind?
             <br />
-            starts with
-            <br />
-            <em>a conversation.</em>
+            <em>Let’s build something great.</em>
           </h2>
           <p>Tell us what you’re thinking. We’ll work out the next step together.</p>
+          <a
+            className="button"
+            href={whatsapp.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp Your Requirements{" "}
+            <span className="arrow" aria-hidden="true">↗</span>
+          </a>
           <div className="contact-meta">
-            WhatsApp your requirements.
-            <strong>
-              <a href={whatsapp.href} target="_blank" rel="noopener noreferrer">
-                {whatsapp.display} ↗
-              </a>
-            </strong>
+            Or message {whatsapp.display} directly.
           </div>
         </div>
         <form className="contact-form" onSubmit={submitEnquiry}>
@@ -108,12 +111,23 @@ export function Contact() {
               onChange={(event) => updateField("message", event.target.value)}
             />
           </label>
-          <button className="button" type="submit">
-            Prepare my enquiry <span className="arrow" aria-hidden="true">↗</span>
+          <button
+            className="button"
+            type="submit"
+            disabled={submitStatus === "sending"}
+          >
+            {submitStatus === "sending" ? "Sending…" : "Send my enquiry"}{" "}
+            <span className="arrow" aria-hidden="true">↗</span>
           </button>
-          <p className="form-note">
-            This template prepares a copyable enquiry. Nothing is sent or stored
-            on a server.
+          <p
+            className={
+              submitStatus === "error" ? "form-note form-status error" : "form-note"
+            }
+            role="status"
+            aria-live="polite"
+          >
+            {submitMessage ||
+              "Your enquiry is emailed to us. We reply to the address you enter."}
           </p>
         </form>
       </div>
