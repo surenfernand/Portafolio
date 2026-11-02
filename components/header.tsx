@@ -1,18 +1,21 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { whatsapp } from "@/lib/content";
 import { Logo } from "./logo";
 
 const links = [
-  { href: "#services", label: "What we do" },
-  { href: "#work", label: "Our work" },
-  { href: "#process", label: "Our process" },
-  { href: "#packages", label: "Pricing" },
-  { href: "#about", label: "About us" },
+  { href: "/services", label: "What we do" },
+  { href: "/work", label: "Our work" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/about", label: "About us" },
 ];
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   function closeMenu() {
     setOpen(false);
@@ -37,12 +40,23 @@ export function Header() {
           aria-label="Main navigation"
         >
           {links.map((link) => (
-            <a key={link.href} href={link.href} onClick={closeMenu}>
+            <Link
+              key={link.href}
+              href={link.href}
+              aria-current={pathname === link.href ? "page" : undefined}
+              onClick={closeMenu}
+            >
               {link.label}
-            </a>
+            </Link>
           ))}
-          <a className="button" href="#contact" onClick={closeMenu}>
-            Let’s talk <span aria-hidden="true">↗</span>
+          <a
+            className="button"
+            href={whatsapp.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={closeMenu}
+          >
+            WhatsApp <span aria-hidden="true">↗</span>
           </a>
         </nav>
       </div>

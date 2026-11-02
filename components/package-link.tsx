@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { useSite } from "./site-context";
 
 export function PackageLink({
@@ -17,12 +18,12 @@ export function PackageLink({
   const { selectOffer } = useSite();
 
   return (
-    <a
+    <Link
       className={className}
-      href="#contact"
+      href="/about#contact"
       onClick={() => selectOffer(packageName, service)}
     >
       {children}
-    </a>
+    </Link>
   );
 }

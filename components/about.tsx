@@ -2,14 +2,12 @@ import { principles } from "@/lib/content";
 
 export function About() {
   return (
-    <section className="wrap" id="about">
+    <section className="wrap about-intro" id="about">
       <div className="about">
         <div>
           <div className="eyebrow">Strategy meets engineering</div>
-          <h2>
-            Your business deserves
-            <br />
-            more than <em>just a page.</em>
+          <h2 className="page-title">
+            Your business deserves more than <em>just a page.</em>
           </h2>
           <p>
             A website should help people understand what you do, trust what

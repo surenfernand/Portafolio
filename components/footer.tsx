@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Logo } from "./logo";
 
 export function Footer() {
@@ -8,9 +9,9 @@ export function Footer() {
           <Logo />
           <p>Thoughtfully designed. Carefully built.</p>
           <div className="footer-links">
-            <a href="#services">Services</a>
-            <a href="#work">Work</a>
-            <a href="#contact">Contact ↗</a>
+            <Link href="/services">Services</Link>
+            <Link href="/work">Work</Link>
+            <Link href="/about#contact">Contact ↗</Link>
           </div>
         </div>
         <div className="template-note">

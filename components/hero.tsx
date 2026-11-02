@@ -1,29 +1,37 @@
+import Link from "next/link";
+import { whatsapp } from "@/lib/content";
+
 export function Hero() {
   return (
     <section className="wrap hero" aria-labelledby="hero-title">
       <div>
-        <div className="eyebrow">Websites. Applications. Possibilities.</div>
-        <h1 id="hero-title">
-          Good ideas.
+        <div className="eyebrow">Websites · Online stores · Custom software</div>
+        <h1 className="page-title" id="hero-title">
+          Your business.
           <br />
-          <em>Great software.</em>
+          <em>Built for the web.</em>
         </h1>
         <p>
-          We turn business ideas into thoughtful websites, online stores, and
-          custom applications. From the first sketch to the final deployment, we
-          connect design with development.
+          Modern design. Mobile-friendly experiences. Built around your
+          business.
         </p>
         <div className="hero-actions">
-          <a href="#contact" className="button">
-            Start a project <span className="arrow" aria-hidden="true">↗</span>
+          <a
+            href={whatsapp.href}
+            className="button"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp your requirements{" "}
+            <span className="arrow" aria-hidden="true">↗</span>
           </a>
-          <a href="#work" className="button light">
-            Explore the possibilities <span aria-hidden="true">↓</span>
-          </a>
+          <Link href="/pricing" className="button light">
+            See pricing <span aria-hidden="true">↓</span>
+          </Link>
         </div>
         <div className="availability">
           <i aria-hidden="true" />
-          Based in Sri Lanka · Built for a connected world
+          Based in Sri Lanka · Working with businesses everywhere
         </div>
       </div>
       <div className="hero-art" aria-label="Illustrative software project workspace">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type MouseEvent } from "react";
+import Link from "next/link";
 import { projects } from "@/lib/content";
 import { useSite } from "./site-context";
 
@@ -48,13 +49,13 @@ export function ProjectDialog() {
       <p>{project?.description}</p>
       <p>{project?.features}</p>
       <div className="dialog-actions">
-        <a
+        <Link
           className="button"
-          href="#contact"
+          href="/about#contact"
           onClick={() => dialogRef.current?.close()}
         >
           Plan something similar ↗
-        </a>
+        </Link>
         <button
           className="button light dialog-close-button"
           type="button"

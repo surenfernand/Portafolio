@@ -1,6 +1,6 @@
 "use client";
 
-import { packageOptions, serviceOptions } from "@/lib/content";
+import { packageOptions, serviceOptions, whatsapp } from "@/lib/content";
 import { useSite } from "./site-context";
 
 export function Contact() {
@@ -20,8 +20,12 @@ export function Contact() {
           </h2>
           <p>Tell us what you’re thinking. We’ll work out the next step together.</p>
           <div className="contact-meta">
-            Your idea doesn’t need to be fully formed.
-            <strong>Just bring a little possibility. ↗</strong>
+            WhatsApp your requirements.
+            <strong>
+              <a href={whatsapp.href} target="_blank" rel="noopener noreferrer">
+                {whatsapp.display} ↗
+              </a>
+            </strong>
           </div>
         </div>
         <form className="contact-form" onSubmit={submitEnquiry}>

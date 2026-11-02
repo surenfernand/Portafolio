@@ -14,7 +14,7 @@ export function WorkSection() {
         <div className="section-heading">
           <div>
             <div className="eyebrow">A few possibilities</div>
-            <h2>
+            <h2 className="page-title">
               Different businesses.
               <br />
               <em>Distinctive websites.</em>

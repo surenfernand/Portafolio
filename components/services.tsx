@@ -6,7 +6,7 @@ export function Services() {
       <div className="section-heading">
         <div>
           <div className="eyebrow">What we can build together</div>
-          <h2>
+          <h2 className="page-title">
             Your next move.
             <br />
             <em>Our kind of challenge.</em>
